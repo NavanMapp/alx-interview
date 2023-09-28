@@ -5,23 +5,21 @@ integers representing the Pascals triangle of n
 ''' 
 
 def pascal_triangle(n):
-    if n <= 0:
-        return []
+    if not isinstance(n, int):
+        raise TypeError("n must be an integer")
 
     triangle = []
 
-    for i in range(n):
-        row = []
-        for j in range(i + 1):
-            if j == 0 or j == i:
-                row.append(1)
+    for row_index in range(n):
+        rowlist = []
+
+        for i in range(row_index + 1):
+            if i == 0 or i == row_index:
+                rowlist.append(1)
             else:
-                row.append(triangle[i - 1][j - 1] + triangle[i - 1][j])
-        triangle.append(row)
+                value = triangle[row_index - 1][i - 1] + triangle[row_index - 1][i]
+                rowlist.append(value)
+
+        triangle.append(rowlist)
 
     return triangle
-
-if __name__ == "__main__":
-    triangle = pascal_triangle(5)
-    for row in triangle:
-        print(row)
