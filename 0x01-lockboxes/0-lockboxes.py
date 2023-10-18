@@ -1,18 +1,16 @@
-from collections import deque
+#!/usr/bin/python3
 
+"""Solution to Lockboxes problem"""
 def canUnlockAll(boxes):
-    n = len(boxes)
-    visited = [False] * n
-    visited[0] = True
-
-    queue = deque([0])
-
-    while queue:
-        current_box = queue.popleft()
-
-        for key in boxes[current_box]:
-            if not visited[key]:
-                visited[key] = True
-                queue.append(key)
-
-    return all(visited)
+    """Determines if all the boxes can be opened"""
+    if (type(boxes) is not list or len(boxes) == 0):
+        return False
+    for k in range(1, len(boxes) - 1):
+        unlocked = False
+        for i in range(len(boxes)):
+            unlocked = k in boxes[i] and k != i
+            if unlocked:
+                break
+        if unlocked is False:
+            return unlocked
+    return True
