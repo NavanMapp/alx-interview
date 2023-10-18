@@ -1,29 +1,24 @@
 #!/usr/bin/python3
 
+"""Minimum Operations"""
+def primeFactorization(x):
+    """Returns prime factorization elements of x"""
+    div = 2
+    array = list()
+    while (div <= x):
+        if x % div == 0:
+            array.append(div)
+            x /= div
+        else:
+            div += 1
+
+    return array
 def minOperations(n):
-    """
-    Calculate the fewest number of operations needed to result
-    in exactly n H characters in the file.
-
-    :param n: The target number of H characters.
-    :return: The minimum number of operations required.
-    """
-    if n <= 1:
-        return 0
-
-    operations = 0
-    divisor = 2
-
-    while n > 1:
-        while n % divisor == 0:
-            operations += divisor
-            n //= divisor
-        divisor += 1
-
-    return operations
-if __name__ == '__main__':
-    n = 4
-    print("Min # of operations to reach {} char: {}".format(n, minOperations(n)))
-
-    n = 12
-    print("Min # of operations to reach {} char: {}".format(n, minOperations(n)))
+    """Calculates the fewest number of operations needed
+        to result in exactly n H characters in the file"""
+    min = 0
+    factors = [x for x in primeFactorization(n)]
+    occurences = {item: factors.count(item) for item in factors}
+    for k, v in occurences.items():
+        min += k * v
+    return min
